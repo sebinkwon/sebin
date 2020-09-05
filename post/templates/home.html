@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- bootstrap4 CSS CDN 부분 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><img class="logo"
+                src="https://likelion.net/assets/logo/likelion-white-a930fbcdf3042a50ba882ece9c02f43536971297a8e143e212d9b92d653bfa44.png"
+                width="200px" height="30px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link active" href="{% url 'home' %}">Home</span></a>
+                    {% if user.is_active %}
+                    {{request.user}}
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    {%else%}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'sign_up' %}">signup</a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-8">
+            <br>
+            <!-- 블로그 이미지 -->
+            <img src="https://t1.daumcdn.net/cfile/tistory/27337B3653B645BC27"
+            style="width:100%; height:300px;">
+            <!-- 작은 navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#" style="font-size: medium; color: black;">prologue</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" style="font-size: medium; color: black;">blog <span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: medium; color: black;">경기대 멋사</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" style="font-size: medium; color: black;">멋사 8기</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#" style="font-size: medium; color: gray;">map <span
+                                        class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style="font-size: medium; color: gray;">library</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style="font-size: medium; color: gray;">memo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style="font-size: medium; color: gray;">tag</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" style="font-size: medium; color: gray;">guest</a>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </nav>
+            <!-- 블로그 전체내용 -->
+            <div class="row">
+                <!-- 프로필 카드 -->
+                <div class="col-3">
+                    <div class="card" style="width: 15rem;">
+                        <img src="https://img1.daumcdn.net/thumb/C500x500.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/2YH6/image/-im-bnvX33JVTe800JHLMcNvmwc.png"
+                            class="card-img-top" style=" height:200px;" alt="프로필사진">
+                        <div class="card-body">
+                            <h6 class="card-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQnNTAmR8VRqsnSf-4mH1m6BnZqny2xnoTz8g&usqp=CAU"
+                                    style="width:30px; height:30px;">&nbsp;
+                                <b>권세빈</b></h6>
+                            <p class="card-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;멋쟁이 사자처럼 8기</p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                style="color:gray;">프로필▶</a>&nbsp;&nbsp;<a style="color: gray;">쪽지▶</a><br><br>
+                            <a href="#" class="btn btn-outline-secondary" style="margin-left: 45px;">+ 이웃추가</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- 글 내용 -->
+                <div class="col-9">
+                    <br>
+                    <form method="POST" action="{% url 'add' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">제목</label>
+                            <input type="text" placeholder="제목" name="title" class="form-control"
+                                id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">글쓴이</label>
+                            <input type="text" placeholder="글쓴이" name="writer" class="form-control"
+                                id="exampleFormControlInput1">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">내용</label>
+                            <textarea placeholder="내용" name="content" class="form-control"
+                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">글쓰기</button>
+                    </form>
+                    <br>
+
+                    <div class="card" style="width: 47rem;">
+                        <div class="card-body">
+                            {% for post in posts%}
+                            <div>
+                                <h2 align="center">[{{post.title}}]</h2>
+                                <h6 align="right" style="color: gray;"> <img
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQnNTAmR8VRqsnSf-4mH1m6BnZqny2xnoTz8g&usqp=CAU"
+                                        style="width:25px; height:25px;">{{post.writer}}</h6>
+                                <hr>
+                                <h4>{{post.content}}</h4>
+                                <br>
+                                <form method="POST" action="{% url 'edit' pk=post.pk %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">제목</label>
+                                        <input type="text" placeholder="제목" name="title" class="form-control"
+                                            id="exampleFormControlInput1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlInput1">글쓴이</label>
+                                        <input type="text" placeholder="글쓴이" name="writer" class="form-control"
+                                            id="exampleFormControlInput1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">내용</label>
+                                        <textarea placeholder="내용" name="content" class="form-control"
+                                            id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">수정하기</button>
+                                    <a href="{% url 'delete' pk=post.pk %}" class="btn btn-secondary">삭제</a>
+                                </form>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+
+    <!-- bootstrap4 js관련 CDN 부분 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
